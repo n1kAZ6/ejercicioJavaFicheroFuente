@@ -3,6 +3,9 @@ package aplicacion.servicios;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.List;
+
+import aplicacion.entidades.Usuario;
 
 /**
  * Clase que implementa la interfaz para la gestión del tratamiento de fichero y define el funcionamiento de dicho métodos.
@@ -12,7 +15,7 @@ import java.io.FileReader;
 public class ImplTratamientoFicheros implements InterfazTramientoFicheros{
 
 	@Override
-	public void lecturaFichero(String rutaFichero) {
+	public List<Usuario> lecturaFichero(String rutaFichero, List<Usuario>listaUser) {
 		
 		File archivo = null;
 		FileReader fr = null;
@@ -27,13 +30,13 @@ public class ImplTratamientoFicheros implements InterfazTramientoFicheros{
 			fr = new FileReader (archivo);	
 			br = new BufferedReader(fr);
 	
-			// Lectura del fichero
+			// Lectura del ficheros
 	
 			String linea = "";
-			
-			while(linea!=null) {	
-				linea=br.readLine();
-				System.out.println(linea);
+			String[]vCampos;
+			while((linea=br.readLine())!=null) {	
+				vCampos=linea.split(";");
+				crearUsuario(vCampos[0],vCampos[1],Integer.parseInt(vCampos[2]),listaUser);
 			}
 		} catch(Exception e){
 			e.printStackTrace();
@@ -50,7 +53,25 @@ public class ImplTratamientoFicheros implements InterfazTramientoFicheros{
 				e2.printStackTrace();	
 			}
 		}
+		return listaUser;
 	}
+
+	/**
+	 * Método que crea objetos tipo usuario con los campos que recibe por parámetro y los guarda en la lista
+	 * @param campoNombre
+	 * @param campoApellido
+	 * @param edad
+	 * @param listaUser
+	 * @return
+	 */
+	private List<Usuario> crearUsuario(String campoNombre, String campoApellido, int edad, List<Usuario> listaUser) {
+		
+		listaUser.add(new Usuario(campoNombre,campoApellido,edad));
+
+		return listaUser;
+	}
+
+
 
 	
 }

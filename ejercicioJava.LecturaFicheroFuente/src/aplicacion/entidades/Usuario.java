@@ -47,7 +47,7 @@ public class Usuario {
 	//Método para toString() para mostrar los datos del usuario
 	@Override
 	public String toString() {
-		return "Datos del usuario: \nNombre: " + nombre + "\nApellidos: " + apellidos + "\nEdad: " + edad;
+		return "\n--- Datos del usuario --- \nNombre: " + nombre + "\nApellidos: " + apellidos + "\nEdad: " + edad;
 	}
 	
 	
